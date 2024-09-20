@@ -1,0 +1,21 @@
+{
+    "code-runner.executorMap": {
+        "c": "gcc -g src/*.c -o main.exe -Iinclude && .\\main.exe"
+    },
+    "files.associations": {
+        "*.html": "html",
+        "stdio.h": "c",
+        "windows.h": "c",
+        "functions.h": "c",
+        "wconsole.h": "c",
+        "constants.h": "c",
+        "stdlib.h": "c",
+        "utils.h": "c",
+        "string.h": "c",
+        "time.h": "c",
+        "piecesconstraints.h": "c",
+        "ctype.h": "c",
+        "board.h": "c",
+        "menu.h": "c"
+    }
+}
