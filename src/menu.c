@@ -5,7 +5,7 @@
 #include "utils.h"
 #include "menu.h"
 
-char *menu() {
+char *mainMenu() {
     static char piece[LTR_SIZE];
     char ltr = pieceTypeMenu();
     char clr = pieceColorMenu();
@@ -13,6 +13,27 @@ char *menu() {
     sprintf(piece, "%c%c", ltr, clr);
 
     return piece;
+}
+
+char pieceTypeMenu() {
+    char *opts = "RQTACP";
+    char *ltrMenuMsg =
+        "Seleccione una ficha de ajedrez:\n\n"
+        "( R. Rey \u265A ) ( Q. Reina \u265B ) ( T. Torre \u265C ) ( A. Alfil \u265D )"
+        "( C. Caballo \u265E ) ( P. Peon \u265F )\n\n"
+        "Ingrese la inicial de la ficha deseada o (S. Salir): ";
+
+    return buildMenu(ltrMenuMsg, opts);
+}
+
+char pieceColorMenu() {
+    char *opts = "NB";
+    char *clrMenuMsg =
+        "\n\nSeleccione el color de ficha:\n\n"
+        "( N. Negro \u26AB ) ( B. Blanco \u26AA )\n\n"
+        "Ingrese la inicial del color deseado o (S. Salir): ";
+
+    return buildMenu(clrMenuMsg, opts);
 }
 
 char buildMenu(char *msg, char *opts) {
@@ -41,25 +62,4 @@ char buildMenu(char *msg, char *opts) {
         return ltr;
 
     } while (1);
-}
-
-char pieceTypeMenu() {
-    char *opts = "RQTACP";
-    char *ltrMenuMsg =
-        "Seleccione una ficha de ajedrez:\n\n"
-        "( R. Rey \u265A ) ( Q. Reina \u265B ) ( T. Torre \u265C ) ( A. Alfil \u265D )"
-        "( C. Caballo \u265E ) ( P. Peon \u265F )\n\n"
-        "Ingrese la inicial de la ficha deseada o (S. Salir): ";
-
-    return buildMenu(ltrMenuMsg, opts);
-}
-
-char pieceColorMenu() {
-    char *opts = "NB";
-    char *clrMenuMsg =
-        "\n\nSeleccione el color de ficha:\n\n"
-        "( N. Negro \u26AB ) ( B. Blanco \u26AA )\n\n"
-        "Ingrese la inicial del color deseado o (S. Salir): ";
-
-    return buildMenu(clrMenuMsg, opts);
 }

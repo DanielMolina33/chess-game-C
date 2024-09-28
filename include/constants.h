@@ -5,6 +5,7 @@
 #define LTR_SIZE 3
 #define PIECE_SIZE 5
 
+extern int counter;
 extern const char* pieces[2][8];
 
 #endif // CONSTANTS_H

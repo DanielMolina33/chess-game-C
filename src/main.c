@@ -14,6 +14,9 @@
 #include "menu.h"
 #include "utils.h"
 
+// Counter variable to track how many times a piece is moved
+int counter = 0;
+
 int main() {
     initWindowsUTF8();
     srand(time(NULL));
@@ -26,14 +29,12 @@ int main() {
     char piece[LTR_SIZE];
 
     initBoard(board);
-    // showBoard(board);
-    strncpy(piece, menu(), sizeof(piece));
+    strncpy(piece, mainMenu(), sizeof(piece));
     randomPosition(piece, board);
 
     do {
         printf("\n\n¿A que celda quieres mover la ficha? ");
-        scanf(" %c", &col);
-        scanf(" %d", &row);
+        scanf(" %c%d", &col, &row);
         col = toUpper(col);
 
         setBoardPosition(row, col, piece, board);

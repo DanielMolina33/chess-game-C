@@ -78,7 +78,7 @@ void setBoardPosition(char rowF, int colFLtr, char piece[LTR_SIZE], char board[S
     } else {
         // Show possible movements
         printf("\n %c%d no es un movimiento valido", colFLtr, rowF);
-        suggestedPositions(rowI, colI, piece[0], board);
+        suggestedMovements(rowI, colI, piece[0], board);
         showBoard(board);
     }
 }

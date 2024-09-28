@@ -16,6 +16,8 @@
         "piecesconstraints.h": "c",
         "ctype.h": "c",
         "board.h": "c",
-        "menu.h": "c"
+        "menu.h": "c",
+        "cmath": "c",
+        "cstdlib": "c"
     }
 }
