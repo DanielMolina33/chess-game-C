@@ -12,6 +12,10 @@ int checkPosition(int rowI, int rowF, int colI, int colF, char piece) {
             return rook(rowI, rowF, colI, colF);
         case 'P':
             return pawn(rowI, rowF, colI, colF);
+        case 'A':
+            return bishop(rowI, rowF, colI, colF);
+        case 'C':
+            return knight(rowI, rowF, colI, colF);
     }
 
     return 0;
@@ -50,6 +54,25 @@ int pawn(int rowI, int rowF, int colI, int colF) {
     return (rowDiffAbs == 1 && (colDiff == 1 || colDiff == 0));
 }
 
+// Determine if a bishop can move from one position to another. Based on chess rules (diagonally only)
+int bishop(int rowI, int rowF, int colI, int colF) {
+    int rowDiff = abs(rowF - rowI);
+    int colDiff = abs(colF - colI);
+
+    return rowDiff == colDiff;
+}
+
+// Determine if a knight can move from one position to another. Based on chess rules (L only, any direction)
+int knight(int rowI, int rowF, int colI, int colF) {
+    int rowDiff = abs(rowF - rowI);
+    int colDiff = abs(colF - colI);
+
+    if (!((rowF >= 1 && rowF < SIZE) && (colF >= 1 && colF < SIZE))) return 0;
+    if ((rowDiff == 2 && colDiff == 1) || (colDiff == 2 && rowDiff == 1)) return 1; 
+
+    return 0;
+}
+
 // Suggest allowable movements for the specified piece type
 void suggestedMovements(int rowI, int colI, char piece, char board[SIZE][SIZE][LTR_SIZE]) {
     switch (piece) {
@@ -59,6 +82,14 @@ void suggestedMovements(int rowI, int colI, char piece, char board[SIZE][SIZE][L
         }
         case 'P': {
             pawnMovements(rowI, colI, board);
+            break;
+        }
+        case 'A': {
+            bishopMovements(rowI, colI, board);
+            break;
+        }   
+        case 'C': {
+            knightMovements(rowI, colI, board);
             break;
         }
     }
@@ -106,6 +137,43 @@ void pawnMovements(int rowI, int colI, char board[SIZE][SIZE][LTR_SIZE]) {
                     strcpy(board[rowF+2][i], pieces[0][6]);
                 }
             }
+        }
+    }
+}
+
+// Mark allowable movements for the bishop on the board.
+void bishopMovements(int rowI, int colI, char board[SIZE][SIZE][LTR_SIZE]) {
+    int rowF, colF;
+
+    for (int i = 1; i < SIZE; i++) {
+        rowF = rowI - i;
+        colF = colI - i;
+
+        if (rowF >= 1) {
+            if (colF >= 1) strcpy(board[rowF][colF], pieces[0][6]);
+            if (colF+2*(i) <= (SIZE-1)) strcpy(board[rowF][colF+2*(i)], pieces[0][6]);
+        }
+
+        rowF = rowI + i;
+        colF = colI + i;
+
+        if (rowF < SIZE) {
+            if (colF < SIZE) strcpy(board[rowF][colF], pieces[0][6]);
+            if (colF-2*(i) >= 1) strcpy(board[rowF][colF-2*(i)], pieces[0][6]);
+        }
+    }
+}
+
+void knightMovements(int rowI, int colI, char board[SIZE][SIZE][LTR_SIZE]) {
+    int rowF, colF;
+
+    for (int i = 1; i < SIZE; i+=2) {
+        for (int j = 0; j < 2; j++) {
+            // printf();
+            int rowF = rowI - i - j;
+            int colF = colI - i - j - 1;
+
+            if(knight(rowI, rowF, colI, colF)) strcpy(board[rowF][colF], pieces[0][6]);
         }
     }
 }
