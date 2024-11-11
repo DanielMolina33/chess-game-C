@@ -6,7 +6,7 @@
 
 void initBoard(char board[SIZE][SIZE][LTR_SIZE]);
 void showBoard(char board[SIZE][SIZE][LTR_SIZE]);
-void setBoardPosition(char rowF, int colFLtr, char piece[LTR_SIZE], char board[SIZE][SIZE][LTR_SIZE]);
+void setBoardPosition(int rowF, char colFLtr, char piece[LTR_SIZE], char board[SIZE][SIZE][LTR_SIZE]);
 char *getBoardPosition(char board[SIZE][SIZE][LTR_SIZE]);
 void drawTop(void);
 void drawColNumbers(void);

@@ -11,6 +11,7 @@
 // File headers
 #include "constants.h"
 #include "board.h"
+#include "pieces.h"
 #include "menu.h"
 #include "utils.h"
 
@@ -23,21 +24,35 @@ int main() {
     
     // Board declaration
     char board[SIZE][SIZE][LTR_SIZE];
+    char usedPieces[ALLOWED_MOVES_SIZE];
 
-    char row;
-    int col;
+    int row;
+    char col;
     char piece[LTR_SIZE];
+    int start = 1;
+    char opt;
+    int idx = 0;
 
-    initBoard(board);
-    strncpy(piece, mainMenu(), sizeof(piece));
-    randomPosition(piece, board);
-
-    do {
-        printf("\n\n¿A que celda quieres mover la ficha? ");
-        scanf(" %c%d", &col, &row);
+    do {      
+        if (start) {
+            initBoard(board);
+            strncpy(piece, mainMenu(), sizeof(piece));
+            randomPosition(piece, board);
+            
+            // Set a single piece only once
+            storeNewPiece(piece[0], usedPieces);
+        }
+        
+        askPiecePosition("\n\n¿A que celda quieres mover la ficha? ", &row, &col);
         col = toUpper(col);
-
+        
         setBoardPosition(row, col, piece, board);
+        
+        // Ask for a new piece, continue with the current one or go out
+        getChar("\n¿Quieres probar otra ficha? (S/N)", &opt);
+        start = toUpper(opt) == 'S';
+        printf("%s", start ? "\n\n": "");
+
     } while (1);
 
     return 0;

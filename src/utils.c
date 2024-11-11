@@ -16,6 +16,21 @@ void initWindowsUTF8() {
 #endif
 }
 
+void getChar(char* msg, char* txt) {
+    printf("%s ", msg);
+    scanf(" %c", txt);
+}
+
+void getNumber(char* msg, int* num) {
+    printf("%s ", msg);
+    scanf(" %d", num);
+}
+
+void askPiecePosition(char* msg, int* row, char* col) {
+    printf("%s ", msg);
+    scanf(" %c%d", col, row);
+}
+
 int convert(int value) {
     // Convert number to letter (1 to 8) or letter to number (A to H)
     if (value >= 1 && value <= 8) {

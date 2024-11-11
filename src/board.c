@@ -54,17 +54,18 @@ void showBoard(char board[SIZE][SIZE][LTR_SIZE]) {
     printf("\n\n");
 }
 
-void setBoardPosition(char rowF, int colFLtr, char piece[LTR_SIZE], char board[SIZE][SIZE][LTR_SIZE]){
+void setBoardPosition(int rowF, char colFLtr, char piece[LTR_SIZE], char board[SIZE][SIZE][LTR_SIZE]){
     int rowColIsValid = 0;
     char* rowCol = getBoardPosition(board);
     int rowI = rowCol[0]-'0';
     int colI = rowCol[1]-'0';
-    int colF = convert(colFLtr); // Convert from letter A-H to number 1-8
-
+    int colF = convert((int) colFLtr); // Convert from letter A-H to number 1-8
+    
     if(rowCol != NULL){
         // if(piece[0] == 'T'){
             // printf("colI: %d\n", colI);
             // printf("rowI: %d\n", rowI);
+            // printf("piece[0]: %d\n", piece[0]);
             rowColIsValid = checkPosition(rowI, rowF, colI, colF, piece[0]);
             // printf("isValid: %d\n", rowColIsValid);
             // strcpy(board[x][y], " ");
@@ -77,7 +78,7 @@ void setBoardPosition(char rowF, int colFLtr, char piece[LTR_SIZE], char board[S
         showBoard(board);
     } else {
         // Show possible movements
-        printf("\n %c%d no es un movimiento valido", colFLtr, rowF);
+        printf("\n %c%d no es un movimiento valido\n", colFLtr, rowF);
         suggestedMovements(rowI, colI, piece[0], board);
         showBoard(board);
     }
