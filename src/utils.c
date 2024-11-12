@@ -74,6 +74,30 @@ void printLine(int count, char *str) {
     }
 }
 
+void removeDuplicateChar(char* str, int n) {
+    int i = 0;
+    
+    while (i < n) {
+        int j = i + 1;
+        
+        while (j < n) {
+            if (str[i] == str[j]) {
+                for (int k = j; k < n; k++) {
+                    str[k] = str[k+1];
+                }
+                n--;
+                
+            } else {
+                j++;
+            }
+        }
+
+        i++;
+    }
+
+    str[n] = '\0';
+}
+
 char* letterToPiece(char piece[LTR_SIZE]) {
     int ltrIdx = pieceType(piece[0]);
     int clrIdx = pieceColor(piece[1]);

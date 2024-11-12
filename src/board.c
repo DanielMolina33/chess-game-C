@@ -6,6 +6,7 @@
 // File headers
 #include "board.h"
 #include "utils.h"
+#include "pieces.h"
 #include "piecesconstraints.h"
 
 // SIMPLER VERSION
@@ -54,13 +55,13 @@ void showBoard(char board[SIZE][SIZE][LTR_SIZE]) {
     printf("\n\n");
 }
 
-void setBoardPosition(int rowF, char colFLtr, char piece[LTR_SIZE], char board[SIZE][SIZE][LTR_SIZE]){
+void setBoardPosition(int rowF, char colFLtr, char piece[LTR_SIZE], int* failedCounter, int* successCounter, char board[SIZE][SIZE][LTR_SIZE]){
     int rowColIsValid = 0;
     char* rowCol = getBoardPosition(board);
     int rowI = rowCol[0]-'0';
     int colI = rowCol[1]-'0';
     int colF = convert((int) colFLtr); // Convert from letter A-H to number 1-8
-    
+
     if(rowCol != NULL){
         // if(piece[0] == 'T'){
             // printf("colI: %d\n", colI);
@@ -75,11 +76,15 @@ void setBoardPosition(int rowF, char colFLtr, char piece[LTR_SIZE], char board[S
     if(rowColIsValid){
         clearBoard(board);
         strcpy(board[rowF][colF], piece);
+        (*successCounter)++;
+
         showBoard(board);
     } else {
         // Show possible movements
         printf("\n %c%d no es un movimiento valido\n", colFLtr, rowF);
         suggestedMovements(rowI, colI, piece[0], board);
+        (*failedCounter)++;
+
         showBoard(board);
     }
 }

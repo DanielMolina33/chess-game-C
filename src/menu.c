@@ -8,10 +8,12 @@
 char *mainMenu() {
     static char piece[LTR_SIZE];
     char ltr = pieceTypeMenu();
+    if (ltr == 'S') return "S";
+
     char clr = pieceColorMenu();
+    if (ltr == 'S') return "S";
 
     sprintf(piece, "%c%c", ltr, clr);
-
     return piece;
 }
 
@@ -47,7 +49,7 @@ char buildMenu(char *msg, char *opts) {
         ltr = toUpper(ltr);
 
         for (int i = 0; i < 6; i++) {
-            if (ltr == 'S') exit(1);
+            if (ltr == 'S') return ltr;
             else if (ltr != opts[i]) continue;
             
             isValid = 1;

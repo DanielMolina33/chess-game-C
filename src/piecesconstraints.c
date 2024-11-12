@@ -16,6 +16,10 @@ int checkPosition(int rowI, int rowF, int colI, int colF, char piece) {
             return bishop(rowI, rowF, colI, colF);
         case 'C':
             return knight(rowI, rowF, colI, colF);
+        case 'Q':
+            return queen(rowI, rowF, colI, colF);
+        case 'R':
+            return king(rowI, rowF, colI, colF);
     }
 
     return 0;
@@ -73,6 +77,35 @@ int knight(int rowI, int rowF, int colI, int colF) {
     return 0;
 }
 
+// Determine if the queen can move from one position to another
+int queen(int rowI, int rowF, int colI, int colF) {
+    int rowDiff = abs(rowF - rowI);
+    int colDiff = abs(colF - colI);
+
+    // Check if the movement is either horizontal, vertical, or diagonal
+    if (rowI == rowF || colI == colF || rowDiff == colDiff) {
+        // Ensure the destination is within the board's limits
+        if (rowF >= 1 && rowF <= SIZE && colF >= 1 && colF <= SIZE) {
+            return 1; // Valid queen move
+        }
+    }
+    
+    return 0;
+}
+
+int king(int rowI, int rowF, int colI, int colF) {
+    int rowDiff = abs(rowF - rowI);
+    int colDiff = abs(colF - colI);
+
+    if (rowDiff <= 1 && colDiff <= 1) {
+        if (rowF >= 1 && rowF <= SIZE && colF >= 1 && colF <= SIZE) {
+            return 1; // Valid king move
+        }
+    }
+    
+    return 0;
+}
+
 // Suggest allowable movements for the specified piece type
 void suggestedMovements(int rowI, int colI, char piece, char board[SIZE][SIZE][LTR_SIZE]) {
     switch (piece) {
@@ -90,6 +123,14 @@ void suggestedMovements(int rowI, int colI, char piece, char board[SIZE][SIZE][L
         }   
         case 'C': {
             knightMovements(rowI, colI, board);
+            break;
+        }
+        case 'Q': {
+            queenMovements(rowI, colI, board);
+            break;
+        }
+        case 'R': {
+            kingMovements(rowI, colI, board);
             break;
         }
     }
@@ -164,16 +205,49 @@ void bishopMovements(int rowI, int colI, char board[SIZE][SIZE][LTR_SIZE]) {
     }
 }
 
+// Mark allowable movements for the knight on the board.
 void knightMovements(int rowI, int colI, char board[SIZE][SIZE][LTR_SIZE]) {
     int rowF, colF;
+    
+    // Los posibles desplazamientos del caballo en términos de (fila, columna)
+    int knightMoves[8][2] = {
+        {-2, -1}, {-1, -2}, {1, -2}, {2, -1},   // Movimientos hacia arriba/abajo y a la izquierda/derecha
+        {2, 1}, {1, 2}, {-1, 2}, {-2, 1}         // Movimientos hacia abajo/arriba y a la derecha/izquierda
+    };
+    
+    // Iteramos sobre cada uno de los posibles movimientos del caballo
+    for (int i = 0; i < 8; i++) {
+        // Calcular las nuevas posiciones de fila y columna
+        rowF = rowI + knightMoves[i][0];
+        colF = colI + knightMoves[i][1];
+        
+        // Verificar si la posición está dentro de los límites del tablero
+        if (rowF >= 0 && rowF < SIZE && colF >= 0 && colF < SIZE) {
+            // Si la casilla es válida, marcar el movimiento en el tablero
+            strcpy(board[rowF][colF], pieces[0][6]);
+        }
+    }
+}
 
-    for (int i = 1; i < SIZE; i+=2) {
-        for (int j = 0; j < 2; j++) {
-            // printf();
-            int rowF = rowI - i - j;
-            int colF = colI - i - j - 1;
+// Mark allowable movements for the queen on the board.
+void queenMovements(int rowI, int colI, char board[SIZE][SIZE][LTR_SIZE]) {
+    bishopMovements(rowI, colI, board);
+    rookMovements(rowI, colI, board);
+}
 
-            if(knight(rowI, rowF, colI, colF)) strcpy(board[rowF][colF], pieces[0][6]);
+// Mark allowable movements for the king on the board.
+void kingMovements(int rowI, int colI, char board[SIZE][SIZE][LTR_SIZE]) {
+    int rowF, colF = 1;
+
+    for (int i = -1; i < 2; i++) {    
+        rowF = rowI + i;
+        colF = colI - 1;
+
+        for (int j = 0; j < 3; j++) {
+            if (rowF >= 0 && rowF < SIZE && colF >= 0 && colF < SIZE) {
+                if (rowI != rowF || colI != colF) strcpy(board[rowF][colF], pieces[0][6]);
+                colF++;
+            }
         }
     }
 }
