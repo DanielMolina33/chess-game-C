@@ -15,9 +15,6 @@
 #include "menu.h"
 #include "utils.h"
 
-// Counter variable to track how many times a piece is moved
-int counter = 0;
-
 int main() {
     initWindowsUTF8();
     srand(time(NULL));
