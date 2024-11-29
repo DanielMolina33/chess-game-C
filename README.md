@@ -27,7 +27,9 @@ Un juego interactivo para el entrenamiento de los movimientos básicos de las fi
 - El rey
 
 
-## Algoritmo empleado
+## Algoritmos empleados
+
+### Proceso general
 
     1.  Inicio
     2.  Declarar tablero[8][8] como matriz de cadenas vacías
@@ -88,7 +90,7 @@ Un juego interactivo para el entrenamiento de los movimientos básicos de las fi
     57.         Leer opcion
     58.         esInicio = ConvertirAMayuscula(opcion)
     59.     Fin Si
-    60. Hasta que piezaSeleccionada == "S"
+    60. Hasta que piezaSeleccionada != "S"
     61. tiempoFin = tiempo actual
     62. tiempoJuego = tiempoFin - tiempoInicio
     63. Mostrar tiempo de juego
@@ -100,7 +102,99 @@ Un juego interactivo para el entrenamiento de los movimientos básicos de las fi
     69. Fin Para
     70. Fin
 
+### Algoritmos de cada pieza
+
+#### Torre
+
+    1. Funcion rook(rowI, rowF, colI, colF)
+    2      Declarar rowDiff, colDiff como entero 
+    3.     rowDiff = calcular valor absoluto entre la diferencia de rowF rowI
+    4.     colDiff = calcular valor absoluto entre la diferencia colF entre colI
+    5.     Si rowDiff < 1 O colDiff < 1 Entonces
+    6.         Retornar Verdadero porque la torre puede moverse vertical y horizontal
+    7.     Fin Si
+    8.     Retornar Falso por que la torre no puede moverse en esa direccion
+    9. Fin Funcion
+
+#### Peón
+
+    1. Funcion pawn(rowI, rowF, colI, colF)
+    2.     Declarar rowDiff, colDiff, rowDiffAbs como enteros
+    3.     rowDiff = calcular valor absoluto entre la diferencia de rowF y rowI
+    4.     colDiff = calcular valor absoluto entre la diferencia de colF y colI
+    5.     rowDiffAbs = calcular valor absoluto de rowDiff  
+    6.     Si rowDiff == 0 Y colDiff == 0 Entonces
+    7.         Retornar 1 porque la pieza no se movió
+    8.     Fin Si
+    9.     Si rowI == 1 O rowI == 8 Entonces
+    10.         Retornar 0 porque es un movimiento en primera o última fila, es una promoción de ficha
+    11.    Fin Si
+    12.    Si rowI == 2 O rowI == 7 Entonces
+    13.         Si rowDiffAbs > 2 Entonces
+    14.             Retornar 0 porque solo se puede mover un máximo de 2 posiciones cuando la ficha está en su posición inicial
+    15.         Fin Si
+    16.         Si rowI == 2 Entonces
+    17.             Mover en segunda fila, dos posiciones hacia adelante o una posición hacia arriba y una diagonal
+    18.         Fin Si
+    19.         Si rowI == 7 Entonces
+    20.             Mover en séptima fila, dos posiciones hacia atrás o una posición hacia abajo y una diagonal
+    21.         Fin Si
+    22.     Fin Si
+    23.     En cualquier otro lugar, mover una posición adelante o atrás o una posición diagonal
+    24. Fin Funcion
 
 
+#### Alfil
+
+    1. Funcion bishop(rowI, rowF, colI, colF)
+    2.     Declarar rowDiff, colDiff como enteros
+    3.     rowDiff = calcular valor absoluto entre la diferencia de rowF y rowI
+    4.     colDiff = calcular valor absoluto entre la diferencia de colF y colI
+    5.     Si rowDiff == colDiff Entonces
+    6.         Retornar Verdadero porque el alfil puede moverse en diagonal
+    7.     Fin Si
+    8.     Retornar Falso porque el alfil no puede moverse en esa dirección
+    9. Fin Funcion
+
+#### Caballo
+
+    1. Funcion knight(rowI, rowF, colI, colF)
+    2.     Declarar rowDiff, colDiff como enteros
+    3.     rowDiff = calcular valor absoluto entre la diferencia de rowF y rowI
+    4.     colDiff = calcular valor absoluto entre la diferencia de colF y colI
+    5.     Si (rowF >= 1 Y rowF < 8) Y (colF >= 1 Y colF < 8) Entonces
+    6.         Si (rowDiff == 2 Y colDiff == 1) O (colDiff == 2 Y rowDiff == 1) Entonces
+    7.             Retornar 1  porque el caballo puede moverse en forma de "L"
+    8.         Fin Si
+    9.     Fin Si
+    10.     Retornar 0 porque el movimiento no es válido para el caballo
+    11. Fin Funcion
+
+#### Reina
+
+    1. Funcion queen(rowI, rowF, colI, colF)
+    2.     Declarar rowDiff, colDiff como enteros
+    3.     rowDiff = calcular valor absoluto entre la diferencia de rowF y rowI
+    4.     colDiff = calcular valor absoluto entre la diferencia de colF y colI
+    5.     Si rowI == rowF O colI == colF O rowDiff == colDiff Entonces
+    6.         Si rowF >= 1 Y rowF <= 8 Y colF >= 1 Y colF <= 8 Entonces
+    7.             Retornar 1 porque la reina puede moverse en diagonal y horizontal y vertical
+    8.         Fin Si
+    9.     Fin Si
+    10.     Retornar 0 porque el movimiento no es valido para la reina
+    11. Fin Funcion
 
 
+#### Rey
+
+    1. Funcion king(rowI, rowF, colI, colF)
+    2.     Declarar rowDiff, colDiff como enteros
+    3.     rowDiff = calcular valor absoluto entre la diferencia de rowF y rowI
+    4.     colDiff = calcular valor absoluto entre la diferencia de colF y colI
+    5.     Si rowDiff <= 1 Y colDiff <= 1 Entonces
+    6.         Si rowF >= 1 Y rowF <= 8 Y colF >= 1 Y colF <= 8 Entonces
+    7.             Retornar 1 porque el rey puede mover una posicion en cualquier direccion
+    8.         Fin Si
+    9.     Fin Si
+    10.     Retornar 0 porque el movimiento no es válido para el rey
+    11. Fin Funcion
