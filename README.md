@@ -29,6 +29,66 @@ Un juego interactivo para el entrenamiento de los movimientos básicos de las fi
 
 ## Algoritmos empleados
 
+### Instrucciones
+
+Al iniciar el juego el programa mostrará el menú principal, mediante el cual se puede elegir la ficha deseada así como la opción para salir del programa:
+
+    Seleccione una ficha de ajedrez:
+
+    ( R. Rey ♚ ) ( Q. Reina ♛ ) ( T. Torre ♜ ) ( A. Alfil ♝ )( C. Caballo ♞ ) ( P. Peon ♟ )
+
+    Ingrese la inicial de la ficha deseada o (S. Salir): A
+
+Una vez se elija la ficha deeseada, el programa solicitará el color de la ficha y nuevamente la opción de salir.
+En el ajedrez existen dos colores. Blanco y negro.
+
+    Seleccione el color de ficha:
+
+    ( N. Negro ⚫ ) ( B. Blanco ⚪ )
+
+    Ingrese la inicial del color deseado o (S. Salir): N
+
+Posteriormente, el programa mostrará el tablero y se dará la opción de elegir a qué celda se desea mover la ficha elegida. Actúa como una celda en formato de Excel, ejemplo: (A1-H6)
+
+    ¿A que celda quieres mover la ficha? A1
+
+Una vez el movimiento se haya realizado, o se hayan mostrado las sugerencias en el tablero, mediante el simbolo (+), el programa brindará la opción de continuar con la misma ficha o usar una nueva.
+
+    ¿Quieres probar otra ficha? (Y/N) Y
+
+- Y, el programa mostrará el menú principal nuevamente, para iniciar de nuevo con otra ficha.
+- N, el programa solicitará nuevamente una celda para continuar con la misma ficha.
+
+Una vez el usuario decida terminar el juego, usando la opción (S) en el menú principal, el programa mostrará las estadisticas de juego para cada una de las fichas usadas. Ejemplo:
+
+    ESTADISTICAS
+
+    Tiempo de juego: 13:46
+    Ficha: ♞
+    Veces usada: 6
+    Porcentaje de aciertos: 83%
+    Movimientos fallidos: 1
+
+    Ficha: ♝
+    Veces usada: 3
+    Porcentaje de aciertos: 100%
+    Movimientos fallidos: 0
+
+    Ficha: ♟
+    Veces usada: 6
+    Porcentaje de aciertos: 66%
+    Movimientos fallidos: 2
+
+    Ficha: ♚
+    Veces usada: 1
+    Porcentaje de aciertos: 0%
+    Movimientos fallidos: 1
+
+    Ficha: ♜
+    Veces usada: 5
+    Porcentaje de aciertos: 80%
+    Movimientos fallidos: 1
+
 ### Proceso general
 
     1.  Inicio
