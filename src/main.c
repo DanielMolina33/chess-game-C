@@ -1,3 +1,5 @@
+// Made by Jose Daniel Molina, Jhoan Sebastian Reyes, Samuel José Polo García
+
 // Libraries
 #include <stdio.h>
 #include <string.h>

@@ -1,6 +1,8 @@
+// Libraries
 #include <string.h>
 #include <stdio.h>
 
+// File headers
 #include "constants.h"
 #include "pieces.h"
 
